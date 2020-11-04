@@ -40,21 +40,48 @@ p {
   width: 100%;
 }
 
-
-
 /* Single Slide */
 .cyber-slider {
   position: relative;
   width: 100%;
-  min-height: 400px;
   display: flex;
   align-items: center;
+  min-height: 500px;
+  padding: 30px 15px;
 }
 
 .cyber-slider__wrapper {
   list-style: none;
   padding: 0px;
   margin: 0px;
+  width: 100%;
+}
+
+.cyber-slider__slide {
+  position: absolute;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.cyber-slider__slide.active {
+  z-index: 999;
+}
+
+.cyber-slider__slide.active:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
 }
 
 /* Img */
@@ -79,9 +106,6 @@ p {
 
 /* Content */
 .cyber-slider__content {
-  display: flex;
-  align-items: center;
-  height: 100%;
   position: relative;
   z-index: 1;
 }
@@ -89,10 +113,10 @@ p {
 .cyber-slider__slidetext {
   max-width: 650px;
   background: #f9eb06;
-  width: 100%;
+  width: auto;
   padding: 30px;
-  margin: 15px;
   position: relative;
+  margin: 30px 15px 60px 15px; /* to compensate for the after element*/
 }
 
 .cyber-slider__slidetext:after {
@@ -105,10 +129,55 @@ p {
   background: url("./../img/bottom-separator.svg");
   background-position: 0 0px;
   position: absolute;
+  max-width: 100%;
 }
 
 .glitching .cyber-slider__slidetext:after {
   animation: 0.35s glitch infinite step-end;
+}
+
+/* Controls */
+
+.cyber-slider__controls {
+  position: absolute;
+  z-index: 999;
+  display: flex;
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  justify-content: center;
+}
+
+.cyber-slider__controls a {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.cyber-slider__controls a::before {
+  content: "";
+  display: block;
+  width: 15px;
+  height: 15px;
+  background: #f9eb06;
+}
+.cyber-slider__controls a:hover {
+  opacity: 0.8;
+}
+
+.cyber-slider__controls .current a {
+  background: url("./../img/accent-active-bullet.svg");
+  background-size: contain;
 }
 
 @keyframes glitch {
@@ -124,7 +193,7 @@ p {
 @media (min-width: 400px) {
   .cyber-slider__slidetext {
     padding: 30px 50px;
-    margin: 60px 30px 60px 0px;
+    margin: 60px 30px 120px 0px;
   }
 }
 
@@ -145,5 +214,13 @@ p {
 
   .cyber-slider {
     min-height: 700px;
+  }
+
+  .cyber-slider__controls {
+    flex-direction: column;
+    right: 0;
+    top: calc(50% - 75px);
+    bottom: unset;
+    left: unset;
   }
 }
