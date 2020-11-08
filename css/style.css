@@ -91,6 +91,7 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .cyber-slider__imgwrap:after {
@@ -102,6 +103,12 @@ p {
   object-fit: cover;
   height: 100%;
   width: 100%;
+  transform: scale(1.5);
+  transition: 0.2s;
+}
+
+.cyber-slider__slide.active:not(.glitching) .cyber-slider__imgwrap img {
+  transform: scale(1);
 }
 
 /* Content */
@@ -130,10 +137,6 @@ p {
   background-position: 0 0px;
   position: absolute;
   max-width: 100%;
-}
-
-.glitching .cyber-slider__slidetext:after {
-  animation: 0.35s glitch infinite step-end;
 }
 
 /* Controls */
@@ -178,6 +181,35 @@ p {
 .cyber-slider__controls .current a {
   background: url("./../img/accent-active-bullet.svg");
   background-size: contain;
+}
+
+/* Glitch Animations */
+
+.glitching .cyber-slider__slidetext:after {
+  animation: 0.25s glitch infinite step-end;
+}
+
+.glitching .cyber-slider__imgwrap .glitch-area img {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
+  z-index: 9999;
+  transform: translate(0, 90%) scale(1.3);
+  height: 100px;
+}
+
+.cyber-slider__slide.active.glitching:after {
+  background:  url(./../img/glitch-lines.svg);
+  opacity:1;
+  /* content: "";
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999; */
 }
 
 @keyframes glitch {
