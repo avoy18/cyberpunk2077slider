@@ -82,6 +82,8 @@ p {
   top: 0;
   left: 0;
   opacity: 0.5;
+  transition: 0.1s;
+  transform: translatex(0);
 }
 
 /* Img */
@@ -103,8 +105,8 @@ p {
   object-fit: cover;
   height: 100%;
   width: 100%;
-  transform: scale(1.5);
-  transition: 0.2s;
+  transform: scale(1.5) translate(20%);
+  transition: 0.1s;
 }
 
 .cyber-slider__slide.active:not(.glitching) .cyber-slider__imgwrap img {
@@ -164,7 +166,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.3s;
+  transition: 0.1s;
 }
 
 .cyber-slider__controls a::before {
@@ -185,8 +187,24 @@ p {
 
 /* Glitch Animations */
 
-.glitching .cyber-slider__slidetext:after {
-  animation: 0.25s glitch infinite step-end;
+.active .cyber-slider__slidetext:after {
+  /* animation: glitch 5s linear 2s infinite alternate; */
+  /* animation: glitch 5s infinite; */
+  animation-name: glitch;
+  animation-duration: 0.2s;
+  animation-timing-function: linear;
+  animation-delay: 0s;
+  animation-iteration-count: 3;
+  animation-direction: step-end;
+  animation-timing-function: step-end;
+}
+
+.glitching .cyber-slider__imgwrap .glitch-area {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .glitching .cyber-slider__imgwrap .glitch-area img {
@@ -195,13 +213,25 @@ p {
   width: 100%;
   left: 0;
   z-index: 9999;
-  transform: translate(0, 90%) scale(1.3);
   height: 100px;
+  animation: blink 0.3s infinite step-end;
+}
+
+.glitching .cyber-slider__imgwrap .glitch-area img:nth-child(1) {
+  transform: translate(-20%, 90%) scale(1.3);
+}
+
+.glitching .cyber-slider__imgwrap .glitch-area img:nth-child(2) {
+  transform: translate(10%, 500%) scale(1.3);
+  animation-delay: 0.1s;
 }
 
 .cyber-slider__slide.active.glitching:after {
-  background:  url(./../img/glitch-lines.svg);
-  opacity:1;
+  background: rgba(255,255,255,0.4) url(./../img/glitch-lines.svg);
+  opacity: 1;
+  transform: translatex(-10%);
+  background-size: contain;
+
   /* content: "";
   width: 100%;
   height: 100%;
@@ -210,6 +240,11 @@ p {
   top: 0;
   left: 0;
   z-index: 999; */
+}
+
+@keyframes blink{
+  0%, 100%{ opacity: 1; }
+  50%{ opacity: 0; }
 }
 
 @keyframes glitch {

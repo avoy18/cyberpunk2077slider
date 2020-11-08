@@ -5,23 +5,39 @@ const allBullets = document.querySelectorAll('.cyber-slider__controls li');
 for (const bullet of allBullets) {
     bullet.addEventListener('click', function (e) {
 
-        // ** When clicked, set the bullet as active
+        const upcomingSlide = document.querySelector(`[data-slideid="${bullet.dataset.slide}"]`);
+        const currentSlide = document.querySelector('.cyber-slider__wrapper .active');
+        // 
+        const currentBullet = document.querySelector('.cyber-slider__controls .current');
+        // 
+        const slideImage = currentSlide.querySelector('.slide-image');
+        const glitchArea = currentSlide.querySelector('.glitch-area');
+        const imageHTML = slideImage.outerHTML + slideImage.outerHTML;
 
-        //  remove all instances of an active class
-        removeAllClasses('current', '.cyber-slider__controls');
-        // add it to the current item
-        bullet.classList.add('current');
+        if (bullet !== currentBullet) {
+            // ** When clicked, set the bullet as active
+            //  remove the current state of a bullet
+            currentBullet.classList.remove('current')
+            // add it to the current item
+            bullet.classList.add('current');
 
-        // ** Switch the slide
+            // ** Switch the slide
+            glitchArea.innerHTML = imageHTML
+            // add the glitching class
+            currentSlide.classList.add('glitching')
+            setTimeout(function () {
 
+                //remove the active state of a slider
+                currentSlide.classList.remove('active')
 
-        const currentSlide = document.querySelector(`[data-slideid="${bullet.dataset.slide}"]`);
+                // remove the glitching class
+                glitchArea.innerHTML = '';
+                currentSlide.classList.remove('glitching');
+                
+                upcomingSlide.classList.add('active');
+            }, 500)
 
-        slideTransition(currentSlide);
-
-
-        // ** - Start the glitch animation
-        // ** - Remove the glitch animation
+        }
 
     })
 }
@@ -36,26 +52,6 @@ function removeAllClasses(classToRemove, parentSelector = '') {
     for (const element of allElements) {
         element.classList.remove(classToRemove)
     }
-
-}
-
-function slideTransition(slideItem) {
-
-
-
-    // add the glitching class
-    slideItem.classList.add('glitching')
-    setTimeout(function () {
-        
-        //remove the active state of a slider
-        removeAllClasses('active', '.cyber-slider__wrapper');
-
-        // remove the glitching class
-        slideItem.classList.remove('glitching');
-        slideItem.classList.add('active');
-    }, 600)
-
-
 
 }
 
