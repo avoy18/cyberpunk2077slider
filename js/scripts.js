@@ -14,8 +14,8 @@ for (const bullet of allBullets) {
         const glitchArea = currentSlide.querySelector('.glitch-area');
         const imageHTML = slideImage.outerHTML + slideImage.outerHTML;
 
+
         if (bullet !== currentBullet) {
-            // ** When clicked, set the bullet as active
             //  remove the current state of a bullet
             currentBullet.classList.remove('current')
             // add it to the current item
@@ -42,18 +42,6 @@ for (const bullet of allBullets) {
     })
 }
 
-
-
-function removeAllClasses(classToRemove, parentSelector = '') {
-
-    // Remove active state from other elements
-    const allElements = document.querySelectorAll(`${parentSelector} .${classToRemove}`);
-
-    for (const element of allElements) {
-        element.classList.remove(classToRemove)
-    }
-
-}
 
 
 
